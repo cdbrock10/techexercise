@@ -12,7 +12,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import datamodel.Employee;
+import datamodel.Game;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -35,18 +35,18 @@ public class UtilDB {
       return sessionFactory;
    }
 
-   public static List<Employee> listEmployees() {
-      List<Employee> resultList = new ArrayList<Employee>();
+   public static List<Game> listGames() {
+      List<Game> resultList = new ArrayList<Game>();
 
       Session session = getSessionFactory().openSession();
       Transaction tx = null;  // each process needs transaction and commit the changes in DB.
 
       try {
          tx = session.beginTransaction();
-         List<?> employees = session.createQuery("FROM Employee").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            Employee employee = (Employee) iterator.next();
-            resultList.add(employee);
+         List<?> games = session.createQuery("FROM Game").list();
+         for (Iterator<?> iterator = games.iterator(); iterator.hasNext();) {
+            Game game = (Game) iterator.next();
+            resultList.add(game);
          }
          tx.commit();
       } catch (HibernateException e) {
@@ -59,21 +59,21 @@ public class UtilDB {
       return resultList;
    }
 
-   public static List<Employee> listEmployees(String keyword) {
-      List<Employee> resultList = new ArrayList<Employee>();
+   public static List<Game> listGames(String keyword) {
+      List<Game> resultList = new ArrayList<Game>();
 
       Session session = getSessionFactory().openSession();
       Transaction tx = null;
 
       try {
          tx = session.beginTransaction();
-         System.out.println((Employee)session.get(Employee.class, 1)); // use "get" to fetch data
-        // Query q = session.createQuery("FROM Employee");
-         List<?> employees = session.createQuery("FROM Employee").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            Employee employee = (Employee) iterator.next();
-            if (employee.getName().startsWith(keyword)) {
-               resultList.add(employee);
+         //System.out.println((Game)session.get(Game.class, 1)); // use "get" to fetch data
+         //Query q = session.createQuery("FROM Game");
+         List<?> games = session.createQuery("FROM Game").list();
+         for (Iterator<?> iterator = games.iterator(); iterator.hasNext();) {
+            Game game = (Game) iterator.next();
+            if (game.getName().contains(keyword)) {
+               resultList.add(game);
             }
          }
          tx.commit();
@@ -86,13 +86,41 @@ public class UtilDB {
       }
       return resultList;
    }
+   
+   public static List<Game> listGames(String keyword, String releasedate) {
+	      List<Game> resultList = new ArrayList<Game>();
 
-   public static void createEmployees(String userName, String age) {
+	      Session session = getSessionFactory().openSession();
+	      Transaction tx = null;
+
+	      try {
+	         tx = session.beginTransaction();
+	         //System.out.println((Game)session.get(Game.class, 1)); // use "get" to fetch data
+	        // Query q = session.createQuery("FROM Game");
+	         List<?> games = session.createQuery("FROM Game").list();
+	         for (Iterator<?> iterator = games.iterator(); iterator.hasNext();) {
+	            Game game = (Game) iterator.next();
+	            if (game.getName().contains(keyword) && game.getReleasedate().contains(releasedate)) {
+	               resultList.add(game);
+	            }
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx != null)
+	            tx.rollback();
+	         e.printStackTrace();
+	      } finally {
+	         session.close();
+	      }
+	      return resultList;
+	   }
+
+   public static void createGame(String name, String releasedate, String gamesystem, String publisher, String price, String region) {
       Session session = getSessionFactory().openSession();
       Transaction tx = null;
       try {
          tx = session.beginTransaction();
-         session.save(new Employee(userName, Integer.valueOf(age)));
+         session.save(new Game(name, releasedate, gamesystem, publisher, price, region));
          tx.commit();
       } catch (HibernateException e) {
          if (tx != null)

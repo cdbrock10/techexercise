@@ -32,21 +32,24 @@ footer {
 
 <body>
 <header>
-<h1> Insert Data (Hibernate)</h1>
+<h1> Insert Games!</h1>
 </header>
 
 <nav>
-<a href="/webproject/simpleSearchHB.html">Search Data</a> <br>
+<a href="/tech-exercise-brock/gameSearch.html">Search Games</a> <br>
 </nav>
 
 <section>
 	<h1>User Input</h1>
 	
-	<form action="SimpleInsertHB" method="POST">
+	<form action="InsertGames" method="POST">
 	
-		User Name: <input type="text" name="userName"> <br />
-		Age: <input type="text" name="age"> <br />
-		
+		Game Name: <input type="text" name="name"> <br />
+		Release Date M/D/Y: <input type="text" name="releasedate"> <br />
+		Game System: <input type="text" name="gamesystem"> <br />
+		Publisher: <input type="text" name="publisher"> <br />
+		Price: <input type="text" name="price"> <br />
+		Region: <input type="text" name="region"> <br />
 		<input type="submit" value="Submit" />
 	</form>
 

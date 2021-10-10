@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="webproject-brock">
+    <wb-module deploy-name="tech-exercise-brock">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/webproject-brock/build/classes"/>
-        <property name="context-root" value="webproject-brock"/>
+        <property name="java-output-path" value="/tech-exercise-brock/build/classes"/>
+        <property name="context-root" value="tech-exercise-brock"/>
     </wb-module>
 </project-modules>

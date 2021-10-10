@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datamodel.Employee;
+import datamodel.Game;
 import util.UtilDB;
 
 @WebServlet("/MyServletHibernateDB")
@@ -22,10 +22,6 @@ public class MyServletHibernateDB extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       response.setContentType("text/html");
 
-      // #1
-      UtilDB.createEmployees("user3", "33");
-      UtilDB.createEmployees("user4", "44");
-      
       // #2
       retrieveDisplayData(response.getWriter());
    }
@@ -40,15 +36,23 @@ public class MyServletHibernateDB extends HttpServlet {
             "<body bgcolor=\"#f0f0f0\">\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
-      List<Employee> listEmployees = UtilDB.listEmployees();
-      for (Employee employee : listEmployees) {
-         System.out.println("[DBG] " + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge());
+      List<Game> listGames = UtilDB.listGames();
+      for (Game game : listGames) {
+         System.out.println("[DBG] " + game.getId() + ", " //
+                 + game.getName() + ", " //
+                 + game.getReleasedate() + ", "
+                 + game.getGamesystem() + ", "
+                 + game.getPublisher() + ", "
+                 + "$" + game.getPrice() + ", "
+                 + game.getRegion());
 
-         out.println("<li>" + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge() + "</li>");
+         out.println("<li>" + game.getId() + ", " //
+                 + game.getName() + ", " //
+                 + game.getReleasedate() + ", "
+                 + game.getGamesystem() + ", "
+                 + game.getPublisher() + ", "
+                 + "$" + game.getPrice() + ", "
+                 + game.getRegion() + "</li>");
       }
       out.println("</ul>");
       out.println("</body></html>");

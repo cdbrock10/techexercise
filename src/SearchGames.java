@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datamodel.Game;
 import util.Info;
 import util.UtilDB;
 
-@WebServlet("/SimpleInsertHB")
-public class SimpleInsertHB extends HttpServlet implements Info {
+@WebServlet("/SearchGames")
+public class SearchGames extends HttpServlet implements Info {
    private static final long serialVersionUID = 1L;
 
-   public SimpleInsertHB() {
+   public SearchGames() {
       super();
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      String userName = request.getParameter("userName").trim();
-      String age = request.getParameter("age").trim();
-      UtilDB.createEmployees(userName, age);
+      String keyword = request.getParameter("keyword").trim();
 
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
@@ -33,11 +33,37 @@ public class SimpleInsertHB extends HttpServlet implements Info {
             "<body bgcolor=\"#f0f0f0\">\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
-      out.println("<li> Name: " + userName);
-      out.println("<li> Age: " + age);
+
+      List<Game> listGames = null;
+      if (keyword != null && !keyword.isEmpty()) {
+         listGames = UtilDB.listGames(keyword);
+      } else {
+         listGames = UtilDB.listGames();
+      }
+      display(listGames, out);
       out.println("</ul>");
       out.println("<a href=/" + projectName + "/" + searchWebName + ">Search Data</a> <br>");
       out.println("</body></html>");
+   }
+
+   void display(List<Game> listGames, PrintWriter out) {
+      for (Game game : listGames) {
+         System.out.println("[DBG] " + game.getId() + ", " //
+               + game.getName() + ", " //
+               + game.getReleasedate() + ", "
+               + game.getGamesystem() + ", "
+               + game.getPublisher() + ", "
+               + "$" + game.getPrice() + ", "
+               + game.getRegion());
+
+         out.println("<li>" + game.getId() + ", " //
+                 + game.getName() + ", " //
+                 + game.getReleasedate() + ", "
+                 + game.getGamesystem() + ", "
+                 + game.getPublisher() + ", "
+                 + "$" + game.getPrice() + ", "
+                 + game.getRegion() +  "</li>");
+      }
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

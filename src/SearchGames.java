@@ -48,7 +48,7 @@ public class SearchGames extends HttpServlet implements Info {
 
    void display(List<Game> listGames, PrintWriter out) {
       for (Game game : listGames) {
-         System.out.println("[DBG] " + game.getId() + ", " //
+         System.out.println("[DBG] " + game.getId() + ", " //Prints out games to the console.
                + game.getName() + ", " //
                + game.getReleasedate() + ", "
                + game.getGamesystem() + ", "
@@ -56,7 +56,7 @@ public class SearchGames extends HttpServlet implements Info {
                + "$" + game.getPrice() + ", "
                + game.getRegion());
 
-         out.println("<li>" + game.getId() + ", " //
+         out.println("<li>" + game.getId() + ": " //Prints out games to the web-page.
                  + game.getName() + ", " //
                  + game.getReleasedate() + ", "
                  + game.getGamesystem() + ", "

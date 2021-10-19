@@ -30,9 +30,9 @@ public class InsertGames extends HttpServlet implements Info {
       
       List<Game> listGames = null;
       listGames = UtilDB.listGames(name, releasedate);
-      if (listGames.size()  < 1)
+      if (listGames.size()  < 1) //If game entered does not exist currently with the given name and release date.
       {
-    	  if (name != "" && releasedate != "" && gamesystem != "" && publisher != "" && price != "" && region != "")
+    	  if (name != "" && releasedate != "" && gamesystem != "" && publisher != "" && price != "" && region != "")//Check if any of the fields are empty.
     	  {
         	  UtilDB.createGame(name, releasedate, gamesystem, publisher, price, region);
               response.setContentType("text/html");
@@ -55,7 +55,7 @@ public class InsertGames extends HttpServlet implements Info {
               out.println("<a href=/" + projectName + "/" + searchWebName + ">Search Data</a> <br>");
               out.println("</body></html>");
     	  }
-    	  else
+    	  else //There are incomplete fields. Prompt the user to fill in all the fields.
     	  {
         	  response.setContentType("text/html");
               PrintWriter out = response.getWriter();
@@ -79,7 +79,7 @@ public class InsertGames extends HttpServlet implements Info {
               out.println("</body></html>");
     	  }
       }
-      else
+      else //The game was already entered.
       {
     	  response.setContentType("text/html");
           PrintWriter out = response.getWriter();

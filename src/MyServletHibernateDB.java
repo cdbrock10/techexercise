@@ -38,7 +38,7 @@ public class MyServletHibernateDB extends HttpServlet {
       out.println("<ul>");
       List<Game> listGames = UtilDB.listGames();
       for (Game game : listGames) {
-         System.out.println("[DBG] " + game.getId() + ", " //
+         System.out.println("[DBG] " + game.getId() + ": " //List games to the console.
                  + game.getName() + ", " //
                  + game.getReleasedate() + ", "
                  + game.getGamesystem() + ", "
@@ -46,7 +46,7 @@ public class MyServletHibernateDB extends HttpServlet {
                  + "$" + game.getPrice() + ", "
                  + game.getRegion());
 
-         out.println("<li>" + game.getId() + ", " //
+         out.println("<li>" + game.getId() + ", " //List games to the web-page.
                  + game.getName() + ", " //
                  + game.getReleasedate() + ", "
                  + game.getGamesystem() + ", "

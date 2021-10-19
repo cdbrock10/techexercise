@@ -67,8 +67,6 @@ public class UtilDB {
 
       try {
          tx = session.beginTransaction();
-         //System.out.println((Game)session.get(Game.class, 1)); // use "get" to fetch data
-         //Query q = session.createQuery("FROM Game");
          List<?> games = session.createQuery("FROM Game").list();
          for (Iterator<?> iterator = games.iterator(); iterator.hasNext();) {
             Game game = (Game) iterator.next();
@@ -95,8 +93,6 @@ public class UtilDB {
 
 	      try {
 	         tx = session.beginTransaction();
-	         //System.out.println((Game)session.get(Game.class, 1)); // use "get" to fetch data
-	        // Query q = session.createQuery("FROM Game");
 	         List<?> games = session.createQuery("FROM Game").list();
 	         for (Iterator<?> iterator = games.iterator(); iterator.hasNext();) {
 	            Game game = (Game) iterator.next();
